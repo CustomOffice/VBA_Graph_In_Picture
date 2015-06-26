@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Vba graph in picture : Permet de passer en revue l&#39;ensemble des graphiques d&#39;un classeur pour en générer les images.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Vba graph in picture</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/CustomOffice/VBA_Graph_In_Picture">View on GitHub</a>
+
+          <h1 id="project_title">Vba graph in picture</h1>
+          <h2 id="project_tagline">Permet de passer en revue l&#39;ensemble des graphiques d&#39;un classeur pour en générer les images.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/CustomOffice/VBA_Graph_In_Picture/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/CustomOffice/VBA_Graph_In_Picture/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="vba_graph_in_picture" class="anchor" href="#vba_graph_in_picture" aria-hidden="true"><span class="octicon octicon-link"></span></a>VBA_Graph_In_Picture</h1>
+
+<p>Permet de passer en revue l'ensemble des graphiques d'un classeur pour en générer les images.     </p>
+
+<h2>
+<a id="instruction" class="anchor" href="#instruction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instruction</h2>
+
+<ul>
+<li>Soit créer un module dans votre projet vba et y copier/coller le code ci-dessous</li>
+<li>Soit télécharger le module (fichier *.bas) et l'inserer dans votre projet vba</li>
+</ul>
+
+<h2>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h2>
+
+<div class="highlight highlight-bash"><pre><span class="pl-s"><span class="pl-pds">'</span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span></span><span class="pl-k">!!!</span>TITRE <span class="pl-c1">:</span> Génération pour le classeur, une image par graphique                                    <span class="pl-k">!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span>!!!DATE :  17.04.15                                                                                !!!</span>
+<span class="pl-s"><span class="pl-pds">'</span></span><span class="pl-k">!!!</span>                                                                                                <span class="pl-k">!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span>!!!DESCRIPTION : permet de passer en revue l<span class="pl-pds">'</span></span>ensemble des graphiques d<span class="pl-s"><span class="pl-pds">'</span>un classeur pour générer les!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span></span><span class="pl-k">!!!</span>images.                                                                                         <span class="pl-k">!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span>!!!                                                                                                !!!</span>
+<span class="pl-s"><span class="pl-pds">'</span></span><span class="pl-k">!!!</span>REGLES <span class="pl-c1">:</span>                                                                                        <span class="pl-k">!!!</span>
+<span class="pl-s"><span class="pl-pds">'</span>!!!- fonctionne avec la macro creer_image                                                       !!!</span>
+<span class="pl-s"><span class="pl-pds">'</span></span><span class="pl-k">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+
+
+Sub <span class="pl-en">graph_in_picture</span>()
+    <span class="pl-s"><span class="pl-pds">'</span>Déclaration des variables</span>
+<span class="pl-s">    Dim nom As String, feuille As String</span>
+<span class="pl-s">    Dim i As Integer</span>
+<span class="pl-s"></span>
+<span class="pl-s">    ScreenUpdating = False</span>
+<span class="pl-s">    i = ActiveSheet.Index <span class="pl-pds">'</span></span>mémorise depuis quel onglet on lance la macro car creer_image sélectionne l<span class="pl-s"><span class="pl-pds">'</span>onglet</span>
+<span class="pl-s"></span>
+<span class="pl-s">    <span class="pl-pds">'</span></span>passe en revue tous les onglets d<span class="pl-s"><span class="pl-pds">'</span>un classeur</span>
+<span class="pl-s">    For Each objet_feuille In ActiveWorkbook.Sheets</span>
+<span class="pl-s">        feuille = objet_feuille.Name</span>
+<span class="pl-s">        <span class="pl-pds">'</span></span>passe en revue tous les graphiques d<span class="pl-s"><span class="pl-pds">'</span>un onglet</span>
+<span class="pl-s">        For Each object_test In Worksheets(feuille).ChartObjects</span>
+<span class="pl-s">            nom = object_test.Name</span>
+<span class="pl-s">            Call creer_image(nom, feuille)</span>
+<span class="pl-s">        Next</span>
+<span class="pl-s">    Next</span>
+<span class="pl-s"></span>
+<span class="pl-s">    Sheets(i).Select <span class="pl-pds">'</span></span>resélectionne l<span class="pl-s"><span class="pl-pds">'</span>onglet de départ</span>
+<span class="pl-s"></span>
+<span class="pl-s">    ScreenUpdating = True</span>
+<span class="pl-s">End Sub</span></pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Vba graph in picture maintained by <a href="https://github.com/CustomOffice">CustomOffice</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
